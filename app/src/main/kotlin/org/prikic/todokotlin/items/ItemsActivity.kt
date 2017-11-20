@@ -6,6 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_items.*
 import org.prikic.todokotlin.R
+import org.prikic.todokotlin.extensions.launchActivity
+import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
 import timber.log.Timber
 
 class ItemsActivity : AppCompatActivity() {
@@ -17,6 +19,8 @@ class ItemsActivity : AppCompatActivity() {
 
         fab.setOnClickListener { _ ->
             Timber.d("open Item Details screen")
+            launchActivity<ItemDetailsActivity> {  }
+
         }
     }
 
