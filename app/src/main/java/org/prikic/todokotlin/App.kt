@@ -1,19 +1,22 @@
 package org.prikic.todokotlin
 
 import android.app.Application
+import org.prikic.todokotlin.itemdetails.ToDoRepositoryModule
 import timber.log.Timber
 
 class App: Application() {
 
-    private val component: AppComponent by lazy {
-        DaggerAppComponent
-                .builder()
-                .appModule(AppModule(this))
-                .build()
+    companion object {
+        lateinit var component: AppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
+        component = DaggerAppComponent
+                .builder()
+                .appModule(AppModule(this))
+                .toDoRepositoryModule((ToDoRepositoryModule()))
+                .build()
         component.inject(this)
 
         if (BuildConfig.DEBUG) {
