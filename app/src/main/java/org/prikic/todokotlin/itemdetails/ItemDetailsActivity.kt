@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.activity_item_details.*
 import org.prikic.todokotlin.R
-import org.prikic.todokotlin.data.model.ToDo
+import org.prikic.todokotlin.data.model.Task
 import timber.log.Timber
 
 class ItemDetailsActivity : AppCompatActivity() {
@@ -52,9 +52,9 @@ class ItemDetailsActivity : AppCompatActivity() {
         if (!isInputValid) return
 
         val weekDay = activity_item_details_spinner.selectedItem.toString()
-        val toDoText = activity_item_details_edit_text.text.toString()
-        val toDo = ToDo(weekDay = weekDay, toDoText = toDoText)
-        itemDetailsVM?.saveToDo(toDo)
+        val taskText = activity_item_details_edit_text.text.toString()
+        val task = Task(weekDay = weekDay, taskText = taskText)
+        itemDetailsVM?.saveToDo(task)
 
     }
 

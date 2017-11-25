@@ -1,7 +1,7 @@
 package org.prikic.todokotlin
 
 import android.app.Application
-import org.prikic.todokotlin.itemdetails.ToDoRepositoryModule
+import org.prikic.todokotlin.itemdetails.TaskRepositoryModule
 import timber.log.Timber
 
 class App: Application() {
@@ -15,7 +15,7 @@ class App: Application() {
         component = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
-                .toDoRepositoryModule((ToDoRepositoryModule()))
+                .taskRepositoryModule((TaskRepositoryModule()))
                 .build()
         component.inject(this)
 

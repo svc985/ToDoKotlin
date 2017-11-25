@@ -34,7 +34,7 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:gravity="center"
-            android:hint="@string/activity_item_details_enter_todo_hint_text"
+            android:hint="@string/activity_item_details_enter_task_hint_text"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
