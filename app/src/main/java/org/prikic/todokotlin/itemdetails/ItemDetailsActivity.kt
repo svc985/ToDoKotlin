@@ -1,5 +1,6 @@
 package org.prikic.todokotlin.itemdetails
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
@@ -54,7 +55,9 @@ class ItemDetailsActivity : AppCompatActivity() {
         val weekDay = activity_item_details_spinner.selectedItem.toString()
         val taskText = activity_item_details_edit_text.text.toString()
         val task = Task(weekDay = weekDay, taskText = taskText)
-        itemDetailsVM?.saveToDo(task)
+        itemDetailsVM?.saveToDo(task)?.observe(this, Observer {
+            message -> Timber.d("message is:$message")
+        })
 
     }
 
