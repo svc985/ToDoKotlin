@@ -1,5 +1,9 @@
 package org.prikic.todokotlin.data.repository
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.data.repository.db.TaskDao
 import timber.log.Timber
@@ -7,13 +11,21 @@ import javax.inject.Inject
 
 class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
-    fun saveTask(task: Task) {
-        if (taskDao == null) {
-            Timber.d("taskDao is null")
-        } else {
-            Timber.d("taskDao is NOT null, yay")
-        }
+    private val compositeDisposable = CompositeDisposable()
 
-        //taskDao.insertTask(task)
+    fun saveTask(task: Task) {
+
+        compositeDisposable.add(Observable.fromCallable {
+            taskDao.insertTask(task)
+        }.doOnComplete {
+            Timber.d("success")
+        }.doOnError {
+            Timber.e("error")
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe())
+
+
     }
 }
