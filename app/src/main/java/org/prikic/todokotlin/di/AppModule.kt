@@ -1,7 +1,8 @@
-package org.prikic.todokotlin
+package org.prikic.todokotlin.di
 
 import dagger.Module
 import dagger.Provides
+import org.prikic.todokotlin.App
 import org.prikic.todokotlin.data.repository.db.TaskDatabase
 import javax.inject.Singleton
 

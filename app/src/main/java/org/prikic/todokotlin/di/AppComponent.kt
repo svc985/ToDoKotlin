@@ -1,9 +1,9 @@
-package org.prikic.todokotlin
+package org.prikic.todokotlin.di
 
 import dagger.Component
+import org.prikic.todokotlin.App
 import org.prikic.todokotlin.data.repository.TaskRepository
 import org.prikic.todokotlin.itemdetails.ItemDetailsViewModel
-import org.prikic.todokotlin.itemdetails.TaskRepositoryModule
 import javax.inject.Singleton
 
 @Singleton

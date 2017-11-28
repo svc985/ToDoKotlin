@@ -1,7 +1,10 @@
 package org.prikic.todokotlin
 
 import android.app.Application
-import org.prikic.todokotlin.itemdetails.TaskRepositoryModule
+import org.prikic.todokotlin.di.AppComponent
+import org.prikic.todokotlin.di.AppModule
+import org.prikic.todokotlin.di.DaggerAppComponent
+import org.prikic.todokotlin.di.TaskRepositoryModule
 import timber.log.Timber
 
 class App: Application() {

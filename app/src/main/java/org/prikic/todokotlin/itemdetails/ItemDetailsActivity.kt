@@ -47,7 +47,6 @@ class ItemDetailsActivity : AppCompatActivity() {
     }
 
     private fun submit() {
-        //Timber.d("clicked save/edit button")
 
         val isInputValid = validateInput()
         if (!isInputValid) return
@@ -73,6 +72,5 @@ class ItemDetailsActivity : AppCompatActivity() {
         }
         return true
     }
-
 
 }

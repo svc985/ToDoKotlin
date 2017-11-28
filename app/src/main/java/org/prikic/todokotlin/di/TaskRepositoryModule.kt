@@ -1,4 +1,4 @@
-package org.prikic.todokotlin.itemdetails
+package org.prikic.todokotlin.di
 
 import dagger.Module
 import dagger.Provides
