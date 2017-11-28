@@ -12,7 +12,7 @@ class ItemDetailsViewModel: ViewModel() {
     @Inject
     lateinit var taskRepository: TaskRepository
 
-    fun saveToDo(task: Task) : LiveData<String> {
+    fun saveToDo(task: Task) : LiveData<ItemDetailsActivity.Message> {
         App.component.inject(this)
 
         return taskRepository.saveTask(task)

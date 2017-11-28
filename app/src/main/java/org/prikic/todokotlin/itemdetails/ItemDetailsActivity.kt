@@ -55,7 +55,16 @@ class ItemDetailsActivity : AppCompatActivity() {
         val taskText = activity_item_details_edit_text.text.toString()
         val task = Task(weekDay = weekDay, taskText = taskText)
         itemDetailsVM?.saveToDo(task)?.observe(this, Observer {
-            message -> Timber.d("message is:$message")
+            message -> run {
+            Timber.d("message is:$message")
+            when (message) {
+                Message.SUCCESS -> reloadScreen()
+                Message.ERROR -> Timber.e("There was an error while saving the task")
+                else -> {
+                    Timber.e("Message has invalid key")
+                }
+            }
+        }
         })
 
     }
@@ -71,6 +80,17 @@ class ItemDetailsActivity : AppCompatActivity() {
             return false
         }
         return true
+    }
+
+    private fun reloadScreen() {
+        Timber.d("Reloading screen in progress")
+        activity_item_details_spinner.setSelection(0)
+        activity_item_details_edit_text.text.clear()
+
+    }
+
+    enum class Message {
+        SUCCESS, ERROR
     }
 
 }
