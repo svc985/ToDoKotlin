@@ -1,5 +1,6 @@
 package org.prikic.todokotlin.data.repository.db
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import org.prikic.todokotlin.data.model.Task
@@ -8,7 +9,7 @@ import org.prikic.todokotlin.data.model.Task
 interface TaskDao {
 
     @Query("select * from task")
-    fun getAllTasks(): List<Task>
+    fun getAllTasks(): LiveData<List<Task>>
 
     @Query("select * from task where id = :id")
     fun findTaskById(id: Long): Task

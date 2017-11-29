@@ -54,7 +54,7 @@ class ItemDetailsActivity : AppCompatActivity() {
         val weekDay = activity_item_details_spinner.selectedItem.toString()
         val taskText = activity_item_details_edit_text.text.toString()
         val task = Task(weekDay = weekDay, taskText = taskText)
-        itemDetailsVM?.saveToDo(task)?.observe(this, Observer {
+        itemDetailsVM?.saveTask(task)?.observe(this, Observer {
             message -> run {
             Timber.d("message is:$message")
             when (message) {
@@ -86,7 +86,6 @@ class ItemDetailsActivity : AppCompatActivity() {
         Timber.d("Reloading screen in progress")
         activity_item_details_spinner.setSelection(0)
         activity_item_details_edit_text.text.clear()
-
     }
 
     enum class Message {

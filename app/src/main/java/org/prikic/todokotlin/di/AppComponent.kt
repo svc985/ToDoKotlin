@@ -4,6 +4,7 @@ import dagger.Component
 import org.prikic.todokotlin.App
 import org.prikic.todokotlin.data.repository.TaskRepository
 import org.prikic.todokotlin.itemdetails.ItemDetailsViewModel
+import org.prikic.todokotlin.items.ItemsViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -11,5 +12,6 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(app: App)
     fun inject(itemDetailsViewModel: ItemDetailsViewModel)
+    fun inject(itemViewModel: ItemsViewModel)
     fun inject(taskRepository: TaskRepository)
 }

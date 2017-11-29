@@ -1,21 +1,32 @@
 package org.prikic.todokotlin.items
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_items.*
 import org.prikic.todokotlin.R
+import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.extensions.launchActivity
 import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
 import timber.log.Timber
 
 class ItemsActivity : AppCompatActivity() {
 
+    private lateinit var itemsVM: ItemsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
         setSupportActionBar(toolbar)
+
+        itemsVM = ViewModelProviders.of(this).get(ItemsViewModel::class.java)
+        itemsVM.getTasks().observe(this, Observer<List<Task>> { items ->
+            Timber.d("tasks size:${items?.size}")
+            //adapter.addItems(tasks)
+        })
 
         fab.setOnClickListener { _ ->
             Timber.d("open Item Details screen")
