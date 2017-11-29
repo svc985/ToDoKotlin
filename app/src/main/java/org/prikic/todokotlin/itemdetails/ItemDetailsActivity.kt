@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.activity_item_details.*
 import org.prikic.todokotlin.R
 import org.prikic.todokotlin.data.model.Task
+import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 
 class ItemDetailsActivity : AppCompatActivity() {
@@ -86,10 +87,6 @@ class ItemDetailsActivity : AppCompatActivity() {
         Timber.d("Reloading screen in progress")
         activity_item_details_spinner.setSelection(0)
         activity_item_details_edit_text.text.clear()
-    }
-
-    enum class Message {
-        SUCCESS, ERROR
     }
 
 }

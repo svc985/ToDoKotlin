@@ -8,7 +8,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.data.repository.db.TaskDao
-import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
+import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,9 +16,9 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun saveTask(task: Task): LiveData<ItemDetailsActivity.Message> {
+    fun saveTask(task: Task): LiveData<Message> {
 
-        val data: MutableLiveData<ItemDetailsActivity.Message> = MutableLiveData()
+        val data: MutableLiveData<Message> = MutableLiveData()
 
         compositeDisposable.add(Observable.fromCallable {
             taskDao.insertTask(task)
@@ -27,11 +27,11 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete {
                     Timber.d("success")
-                    data.value = ItemDetailsActivity.Message.SUCCESS
+                    data.value = Message.SUCCESS
                 }
                 .doOnError {
                     Timber.e("error")
-                    data.value = ItemDetailsActivity.Message.ERROR
+                    data.value = Message.ERROR
                 }
                 .subscribe())
 
@@ -40,9 +40,9 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
     fun getTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
 
-    fun deleteTask(task: Task): LiveData<ItemDetailsActivity.Message> {
+    fun deleteTask(task: Task): LiveData<Message> {
 
-        val data: MutableLiveData<ItemDetailsActivity.Message> = MutableLiveData()
+        val data: MutableLiveData<Message> = MutableLiveData()
 
         compositeDisposable.add(Observable.fromCallable {
             taskDao.deleteTask(task)
@@ -51,11 +51,11 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete {
                     Timber.d("success")
-                    data.value = ItemDetailsActivity.Message.SUCCESS
+                    data.value = Message.SUCCESS
                 }
                 .doOnError {
                     Timber.e("error")
-                    data.value = ItemDetailsActivity.Message.ERROR
+                    data.value = Message.ERROR
                 }
                 .subscribe())
 

@@ -12,7 +12,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.task_card.view.*
 import org.prikic.todokotlin.R
 import org.prikic.todokotlin.data.model.Task
-import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
+import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 
 class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: FragmentActivity) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
@@ -32,8 +32,8 @@ class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: F
                 message -> run {
                 Timber.d("message is:$message")
                 when (message) {
-                    ItemDetailsActivity.Message.SUCCESS -> Timber.d("Task deleted")
-                    ItemDetailsActivity.Message.ERROR -> Timber.e("Task deletion error")
+                    Message.SUCCESS -> Timber.d("Task deleted")
+                    Message.ERROR -> Timber.e("Task deletion error")
                     else -> {
                         Timber.e("Message has invalid key")
                     }

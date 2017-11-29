@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import org.prikic.todokotlin.App
 import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.data.repository.TaskRepository
+import org.prikic.todokotlin.util.Message
 import javax.inject.Inject
 
 class ItemDetailsViewModel: ViewModel() {
@@ -12,10 +13,10 @@ class ItemDetailsViewModel: ViewModel() {
     @Inject
     lateinit var taskRepository: TaskRepository
 
-    fun saveTask(task: Task) : LiveData<ItemDetailsActivity.Message> {
+    init {
         App.component.inject(this)
-
-        return taskRepository.saveTask(task)
     }
+
+    fun saveTask(task: Task) : LiveData<Message> = taskRepository.saveTask(task)
 
 }

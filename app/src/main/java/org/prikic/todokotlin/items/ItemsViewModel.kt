@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import org.prikic.todokotlin.App
 import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.data.repository.TaskRepository
-import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
+import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -14,13 +14,13 @@ class ItemsViewModel: ViewModel() {
     @Inject
     lateinit var taskRepository: TaskRepository
 
-    fun getTasks() : LiveData<List<Task>> {
+    init {
         App.component.inject(this)
-
-        return taskRepository.getTasks()
     }
 
-    fun deleteTask(task: Task?) : LiveData<ItemDetailsActivity.Message>{
+    fun getTasks() : LiveData<List<Task>> = taskRepository.getTasks()
+
+    fun deleteTask(task: Task?) : LiveData<Message>{
         Timber.d("delete task:$task")
 
         return taskRepository.deleteTask(task!!)
