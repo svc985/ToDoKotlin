@@ -4,14 +4,18 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_items.*
+import kotlinx.android.synthetic.main.content_items.*
 import org.prikic.todokotlin.R
 import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.extensions.launchActivity
 import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
 import timber.log.Timber
+import java.util.*
 
 class ItemsActivity : AppCompatActivity() {
 
@@ -22,10 +26,13 @@ class ItemsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_items)
         setSupportActionBar(toolbar)
 
+        val adapter = TaskAdapter(LinkedList())
+        initRecyclerView(adapter)
+
         itemsVM = ViewModelProviders.of(this).get(ItemsViewModel::class.java)
-        itemsVM.getTasks().observe(this, Observer<List<Task>> { items ->
-            Timber.d("tasks size:${items?.size}")
-            //adapter.addItems(tasks)
+        itemsVM.getTasks().observe(this, Observer<List<Task>> { tasks ->
+            Timber.d("tasks size:${tasks?.size}")
+            adapter.addItems(tasks?.toMutableList())
         })
 
         fab.setOnClickListener { _ ->
@@ -33,6 +40,13 @@ class ItemsActivity : AppCompatActivity() {
             launchActivity<ItemDetailsActivity> {  }
 
         }
+    }
+
+    private fun initRecyclerView(adapter: TaskAdapter) {
+        val layoutManager = LinearLayoutManager(this)
+        tasks_recycler_view.layoutManager = layoutManager
+        tasks_recycler_view.itemAnimator = DefaultItemAnimator()
+        tasks_recycler_view.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

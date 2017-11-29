@@ -38,7 +38,5 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
         return data
     }
 
-    fun getTasks(): LiveData<List<Task>> {
-        return taskDao.getAllTasks()
-    }
+    fun getTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
 }
