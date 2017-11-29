@@ -26,7 +26,7 @@ class ItemsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_items)
         setSupportActionBar(toolbar)
 
-        val adapter = TaskAdapter(LinkedList())
+        val adapter = TaskAdapter(LinkedList(), this)
         initRecyclerView(adapter)
 
         itemsVM = ViewModelProviders.of(this).get(ItemsViewModel::class.java)

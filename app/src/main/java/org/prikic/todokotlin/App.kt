@@ -23,7 +23,16 @@ class App: Application() {
         component.inject(this)
 
         if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+            Timber.plant(MyDebugTree())
+        }
+    }
+
+    inner class MyDebugTree : Timber.DebugTree() {
+        override fun createStackElementTag(element: StackTraceElement): String? {
+            return String.format("[L:%s] [M:%s] [C:%s]",
+                    element.lineNumber,
+                    element.methodName,
+                    super.createStackElementTag(element))
         }
     }
 }

@@ -39,4 +39,26 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
     }
 
     fun getTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
+
+    fun deleteTask(task: Task): LiveData<ItemDetailsActivity.Message> {
+
+        val data: MutableLiveData<ItemDetailsActivity.Message> = MutableLiveData()
+
+        compositeDisposable.add(Observable.fromCallable {
+            taskDao.deleteTask(task)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    Timber.d("success")
+                    data.value = ItemDetailsActivity.Message.SUCCESS
+                }
+                .doOnError {
+                    Timber.e("error")
+                    data.value = ItemDetailsActivity.Message.ERROR
+                }
+                .subscribe())
+
+        return data
+    }
 }
