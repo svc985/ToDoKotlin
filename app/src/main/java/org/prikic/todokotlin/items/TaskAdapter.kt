@@ -15,7 +15,8 @@ import org.prikic.todokotlin.data.model.Task
 import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 
-class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: FragmentActivity) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: FragmentActivity) :
+        RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -26,20 +27,29 @@ class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: F
         val task = tasks?.get(position)
         holder.day.text = task?.weekDay
         holder.description.text = task?.taskText
-        holder.container.setOnClickListener({
-            val itemsVM: ItemsViewModel = ViewModelProviders.of(activity).get(ItemsViewModel::class.java)
-            itemsVM.deleteTask(task).observe(activity, Observer {
-                message -> run {
-                Timber.d("message is:$message")
-                when (message) {
-                    Message.SUCCESS -> Timber.d("Task deleted")
-                    Message.ERROR -> Timber.e("Task deletion error")
-                    else -> {
-                        Timber.e("Message has invalid key")
+
+        holder.container.setOnLongClickListener({ _: View ->
+
+            val itemsVM: ItemsViewModel = ViewModelProviders
+                    .of(activity)
+                    .get(ItemsViewModel::class.java)
+
+            itemsVM.deleteTask(task).observe(activity, Observer { message ->
+                run {
+                    Timber.d("message is:$message")
+                    when (message) {
+                        Message.SUCCESS -> Timber.d("Task deleted")
+                        Message.ERROR -> Timber.e("Task deletion error")
+                        else -> {
+                            Timber.e("Message has invalid key")
+                        }
                     }
                 }
-            }
             })
+            true
+        })
+        holder.container.setOnClickListener({
+            Timber.d("update this task:$task")
         })
     }
 
