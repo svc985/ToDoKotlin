@@ -3,6 +3,7 @@ package org.prikic.todokotlin.itemdetails
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -18,11 +19,21 @@ class ItemDetailsActivity : AppCompatActivity() {
 
     private var itemDetailsVM: ItemDetailsViewModel? = null
 
+    companion object Factory{
+        fun start(ctx: Context) {
+            val intent = Intent(ctx, ItemDetailsActivity::class.java)
+            intent.putExtra("key", 123)
+            ctx.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_details)
 
         Timber.d("Item details activity opened")
+
+        Timber.d("transfered value:%s", intent.getIntExtra("key", -1))
 
         itemDetailsVM = ViewModelProviders.of(this).get(ItemDetailsViewModel::class.java)
 

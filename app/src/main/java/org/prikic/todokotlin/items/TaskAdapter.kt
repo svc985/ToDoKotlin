@@ -12,6 +12,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.task_card.view.*
 import org.prikic.todokotlin.R
 import org.prikic.todokotlin.data.model.Task
+import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
 import org.prikic.todokotlin.util.Message
 import timber.log.Timber
 
@@ -28,11 +29,11 @@ class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: F
         holder.day.text = task?.weekDay
         holder.description.text = task?.taskText
 
-        holder.container.setOnLongClickListener({ _: View ->
+        val itemsVM: ItemsViewModel = ViewModelProviders
+                .of(activity)
+                .get(ItemsViewModel::class.java)
 
-            val itemsVM: ItemsViewModel = ViewModelProviders
-                    .of(activity)
-                    .get(ItemsViewModel::class.java)
+        holder.container.setOnLongClickListener({ _: View ->
 
             itemsVM.deleteTask(task).observe(activity, Observer { message ->
                 run {
@@ -50,6 +51,7 @@ class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: F
         })
         holder.container.setOnClickListener({
             Timber.d("update this task:$task")
+            ItemDetailsActivity.start(activity)
         })
     }
 
