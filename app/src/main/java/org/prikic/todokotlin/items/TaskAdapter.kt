@@ -51,7 +51,7 @@ class TaskAdapter(private var tasks: MutableList<Task>?, private val activity: F
         })
         holder.container.setOnClickListener({
             Timber.d("update this task:$task")
-            ItemDetailsActivity.start(activity)
+            ItemDetailsActivity.start(activity, task)
         })
     }
 

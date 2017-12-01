@@ -20,9 +20,12 @@ class ItemDetailsActivity : AppCompatActivity() {
     private var itemDetailsVM: ItemDetailsViewModel? = null
 
     companion object Factory{
-        fun start(ctx: Context) {
+
+        val BUNDLE_TASK = "task"
+
+        fun start(ctx: Context, task: Task?) {
             val intent = Intent(ctx, ItemDetailsActivity::class.java)
-            intent.putExtra("key", 123)
+            intent.putExtra(BUNDLE_TASK, task)
             ctx.startActivity(intent)
         }
     }
@@ -33,7 +36,7 @@ class ItemDetailsActivity : AppCompatActivity() {
 
         Timber.d("Item details activity opened")
 
-        Timber.d("transfered value:%s", intent.getIntExtra("key", -1))
+        Timber.d("transferred task:%s", intent.getParcelableExtra(BUNDLE_TASK))
 
         itemDetailsVM = ViewModelProviders.of(this).get(ItemDetailsViewModel::class.java)
 
