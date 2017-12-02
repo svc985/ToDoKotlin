@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_items.*
 import kotlinx.android.synthetic.main.content_items.*
 import org.prikic.todokotlin.R
 import org.prikic.todokotlin.data.model.Task
-import org.prikic.todokotlin.extensions.launchActivity
 import org.prikic.todokotlin.itemdetails.ItemDetailsActivity
 import timber.log.Timber
 import java.util.*
@@ -37,7 +36,7 @@ class ItemsActivity : AppCompatActivity() {
 
         fab.setOnClickListener { _ ->
             Timber.d("open Item Details screen")
-            launchActivity<ItemDetailsActivity> {  }
+            ItemDetailsActivity.start(this, null)
 
         }
     }

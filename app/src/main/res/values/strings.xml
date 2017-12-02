@@ -4,6 +4,7 @@
 
     <string name="activity_item_details_enter_task_hint_text">Enter task text</string>
     <string name="activity_item_details_save">Save</string>
+    <string name="activity_item_details_edit">Update</string>
     <string-array name="WeekDays">
         <item>Veuillez sélectionner un jour</item>
         <item>Lundi</item>

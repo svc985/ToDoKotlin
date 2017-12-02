@@ -7,13 +7,12 @@ import android.os.Parcel
 import android.os.Parcelable
 
 @Entity(tableName = "task")
-data class Task(@ColumnInfo(name = "week_day") val weekDay: String,
+data class Task(@ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) var id: Long = 0,
+                @ColumnInfo(name = "week_day") val weekDay: String,
                 @ColumnInfo(name = "task_desc") val taskText: String) : Parcelable {
-    @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
 
     constructor(source: Parcel) : this(
+            source.readLong(),
             source.readString(),
             source.readString()
     )
@@ -21,6 +20,7 @@ data class Task(@ColumnInfo(name = "week_day") val weekDay: String,
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeLong(id)
         writeString(weekDay)
         writeString(taskText)
     }

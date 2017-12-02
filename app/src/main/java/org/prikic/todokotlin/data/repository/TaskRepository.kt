@@ -61,4 +61,19 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
 
         return data
     }
+
+    fun updateTask(task: Task) {
+        compositeDisposable.add(Observable.fromCallable {
+            taskDao.updateTask(task)
+        }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete {
+                    Timber.d("success updating task")
+                }
+                .doOnError {
+                    Timber.e("error updating task")
+                }
+                .subscribe())
+    }
 }

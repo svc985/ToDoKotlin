@@ -19,4 +19,6 @@ class ItemDetailsViewModel: ViewModel() {
 
     fun saveTask(task: Task) : LiveData<Message> = taskRepository.saveTask(task)
 
+    fun updateTask(task: Task) = taskRepository.updateTask(task)
+
 }
